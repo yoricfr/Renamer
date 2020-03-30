@@ -2,8 +2,9 @@
 
 ## Purpose
 
-This CLI program run from the command line and will rename all the files in the search folder, following the renaming rules in the Excel file sitting in the root directory:
+This CLI program run from the command line and will rename all the files in the search folder, following the renaming rules in the Excel file sitting in the root directory.
 
+## Before running the script
 
     renamer/
     ├── LICENSE
@@ -21,7 +22,7 @@ rules.xlsx:
     file001.jpg ; newname001.jpg
     file002.jpg ; anynewname.jpg
     
-After running the script, we get:
+## After running the script, we get:
 
     renamer/
     ├── LICENSE
