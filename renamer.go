@@ -45,6 +45,7 @@ func main() {
 	}
 
   filesRenamed := 0
+  found := false
 
   // browse every file from "search_folder"
   err = filepath.Walk("search_folder", func(path string, info os.FileInfo, err error) error {
@@ -53,6 +54,7 @@ func main() {
       return nil
     }
     // check if there's a renaming rule for this specific file
+    found = false
     for _,l := range data {
       if l[0] == info.Name() {
         err = os.Rename(path, filepath.Join(filepath.Dir(path),l[1]))
@@ -61,7 +63,13 @@ func main() {
             return nil
         }
         filesRenamed +=1
+        found = true
+        break
       }
+    }
+    // New feature: Print out all files with no renaming rules attached
+    if !found {
+      fmt.Println("No rules found for:", path)
     }
     return nil
   })
