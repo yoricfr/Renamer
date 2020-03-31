@@ -40,4 +40,18 @@ go get github.com/360EntSecGroup-Skylar/excelize
       }
     }
    
+### Store the Excel file data into a slice
 
+  var data [][2]string
+    // skip the first line (header)
+    for _, row := range rows[1:] {
+      line := [2]string{"",""}
+      for i, colCell := range row {
+        line[i] = colCell
+      }
+      // skip the last empty line
+      if line[0] != "" && line[1] != "" {
+        data = append(data, line)
+      }
+    }
+    fmt.Println(data)
