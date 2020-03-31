@@ -42,7 +42,7 @@ go get github.com/360EntSecGroup-Skylar/excelize
    
 ### Store the Excel file data into a slice
 
-  var data [][2]string
+    var data [][2]string
     // skip the first line (header)
     for _, row := range rows[1:] {
       line := [2]string{"",""}
