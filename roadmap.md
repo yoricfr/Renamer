@@ -1,4 +1,4 @@
-# Step by step of every new features that have been added
+# Step by step of every new features
 
 ## Parsing the Excel file (.xlsx)
 
