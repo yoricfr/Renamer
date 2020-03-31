@@ -17,11 +17,17 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+  var data [][2]string
   // skip the first line (header)
   for _, row := range rows[1:] {
-		for _, colCell := range row {
-			fmt.Print(colCell, "\t")
+    line := [2]string{"",""}
+		for i, colCell := range row {
+      line[i] = colCell
 		}
-		fmt.Println()
+    // skip the last empry line
+    if line[0] != "" && line[1] != "" {
+      data = append(data, line)
+    }
 	}
+  fmt.Println(data)
 }
