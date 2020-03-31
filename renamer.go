@@ -1,7 +1,8 @@
 // This  program runs from the command line and will rename all the files in the search_folder, following the renaming rules in the Excel file sitting in the root directory (filenames.xlsx)
 // Author: Yoric Mangeart
 // Date: 2020/03/31
-// Revision: 1.0
+// Revision: 1.0 original release
+//           1.1 Print out all file names with no renaming rules
 
 package main
 
