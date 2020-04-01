@@ -3,6 +3,7 @@
 // Date: 2020/03/31
 // Revision: 1.0 original release
 //           1.1 Print out all file names with no renaming rules
+//           1.2 Print out all Excel names not found in search_folder
 
 package main
 
@@ -31,11 +32,11 @@ func main() {
 	}
 
   // where we store the data from the Excel file
-  var data [][2]string
+  var data [][3]string
 
   // skip the first line (header)
   for _, row := range rows[1:] {
-    line := [2]string{"",""}
+    line := [3]string{"","",""}
 		for i, colCell := range row {
       line[i] = colCell
 		}
@@ -46,7 +47,6 @@ func main() {
 	}
 
   filesRenamed := 0
-  found := false
 
   // browse every file from "search_folder"
   err = filepath.Walk("search_folder", func(path string, info os.FileInfo, err error) error {
@@ -55,7 +55,6 @@ func main() {
       return nil
     }
     // check if there's a renaming rule for this specific file
-    found = false
     for _,l := range data {
       if l[0] == info.Name() {
         err = os.Rename(path, filepath.Join(filepath.Dir(path),l[1]))
@@ -64,13 +63,10 @@ func main() {
             return nil
         }
         filesRenamed +=1
-        found = true
+        // we mark this line as "used" for post-processing the listing
+        l[2]="u"
         break
       }
-    }
-    // New feature: Print out all files with no renaming rules attached
-    if !found {
-      fmt.Println("No rules found for:", path)
     }
     return nil
   })
@@ -78,5 +74,10 @@ func main() {
 		fmt.Printf("error walking the path %q: %v\n", "search_folder", err)
 		return
 	}
+  for _,l := range data {
+    if l[2]=="" {
+      fmt.Println("Excel name not found:", l[0])
+    }
+  }
   fmt.Println("Done:", filesRenamed, "file(s) renamed.")
 }
