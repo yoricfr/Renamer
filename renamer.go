@@ -55,7 +55,7 @@ func main() {
       return nil
     }
     // check if there's a renaming rule for this specific file
-    for _,l := range data {
+    for j,l := range data {
       if l[0] == info.Name() {
         err = os.Rename(path, filepath.Join(filepath.Dir(path),l[1]))
           if err != nil {
@@ -64,7 +64,7 @@ func main() {
         }
         filesRenamed +=1
         // we mark this line as "used" for post-processing the listing
-        l[2]="u"
+        data[j][2]="u"
         break
       }
     }
